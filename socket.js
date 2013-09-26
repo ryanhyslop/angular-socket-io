@@ -19,7 +19,7 @@ angular.module('btford.socket-io', []).
       var socket = ioSocket || io.connect();
 
       var asyncAngularify = function (callback) {
-        return function () {  
+        return function () {
           var args = arguments;
           $timeout(function () {
             callback.apply(socket, args);
@@ -46,6 +46,10 @@ angular.module('btford.socket-io', []).
         removeListener: function () {
           var args = arguments;
           return socket.removeListener.apply(socket, args);
+        },
+
+        removeAllListeners: function(eventName) {
+          return socket.removeAllListeners.call(socket, eventName);
         },
 
         // when socket.on('someEvent', fn (data) { ... }),
